@@ -1,0 +1,7 @@
+.DS_STORE
+gen.pth.tar
+genv2.pth.tar
+*.tar
+.env
+wandb
+__pycache__
