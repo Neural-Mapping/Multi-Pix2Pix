@@ -5,3 +5,4 @@ genv2.pth.tar
 .env
 wandb
 __pycache__
+wandb
