@@ -305,11 +305,6 @@ def get_map(cords, start_date, end_date, evalscript_true_color, evalscript_ndvi,
     elevation = srtm.select('elevation')  # Elevation data
     slope = terrain.select('slope') 
 
-    srtm = ee.Image("USGS/SRTMGL1_003")
-    terrain = ee.Algorithms.Terrain(srtm)
-    elevation = srtm.select('elevation')  # Elevation data
-    slope = terrain.select('slope') 
-
     roi = ee.Geometry.Rectangle(*cords) 
 
     Map = geemap.Map()

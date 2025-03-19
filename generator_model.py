@@ -140,10 +140,10 @@ class Generator(nn.Module):
 
 ## Testing
 if __name__ == "__main__":
-    gen = Generator(in_channels=3, inter_images=0, out_channels=3)
+    gen = Generator(in_channels=3, inter_images=4, out_channels=3)
     a = 256
     x = torch.rand(2, 3, a, a)
-    result = gen(x, z1=x)
+    result = gen(x, z1=x, z2=x, z3=x, z4=x)
     print("Output: ", result.shape)
 
     total_params = sum(p.numel() for p in gen.parameters())
