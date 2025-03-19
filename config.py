@@ -3,6 +3,12 @@ import albumentations as A
 from albumentations.pytorch import ToTensorV2
 import config
 from albumentations.core.transforms_interface import BasicTransform
+import os
+
+def is_running_on_kaggle():
+    return "KAGGLE_KERNEL_RUN_TYPE" in os.environ
+
+KAGGLE_STR = "/kaggle/working/CycleGAN/" if is_running_on_kaggle() else ""
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 TRAIN_DIR = "image_dataset/landslide/Train"
@@ -12,7 +18,7 @@ LEARNING_RATE = 2e-4
 BATCH_SIZE = 1
 VAL_BATCH_SIZE = 5
 NUM_WORKERS = 2
-IMAGE_SIZE = 128
+IMAGE_SIZE = 512
 CHANNELS_IMG = 3
 L1_LAMBDA = 100
 LAMBDA_GP = 10
@@ -22,7 +28,7 @@ SAVE_MODEL = True
 CHECKPOINT_DISC = "disc_LSM_v1.pth.tar"
 CHECKPOINT_GEN = "gen_LSM_v1.pth.tar"
 
-RESIZE = 2
+RESIZE = None
 if RESIZE != None:
     IMAGE_RESIZED = RESIZE * IMAGE_SIZE
 else:
