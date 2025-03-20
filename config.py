@@ -17,8 +17,8 @@ COLAB_STR = "content/Multi-Pix2Pix/" if is_running_on_colab() else ""
 PREFIX_STR = KAGGLE_STR + COLAB_STR
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-TRAIN_DIR = KAGGLE_STR + "image_dataset/landslide/Train"
-VAL_DIR = KAGGLE_STR + "image_dataset/landslide/Test"
+TRAIN_DIR = PREFIX_STR + "image_dataset/landslide/Train"
+VAL_DIR = PREFIX_STR + "image_dataset/landslide/Test"
 
 LEARNING_RATE = 2e-4
 BATCH_SIZE = 1
@@ -31,8 +31,8 @@ LAMBDA_GP = 10
 NUM_EPOCHS = 500
 LOAD_MODEL = False
 SAVE_MODEL = True
-CHECKPOINT_DISC = KAGGLE_STR + "disc_LSM_v1.pth.tar"
-CHECKPOINT_GEN = KAGGLE_STR + "gen_LSM_v1.pth.tar"
+CHECKPOINT_DISC = PREFIX_STR + "disc_LSM_v1.pth.tar"
+CHECKPOINT_GEN = PREFIX_STR + "gen_LSM_v1.pth.tar"
 
 RESIZE = None
 if RESIZE != None:
