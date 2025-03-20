@@ -8,7 +8,13 @@ import os
 def is_running_on_kaggle():
     return "KAGGLE_KERNEL_RUN_TYPE" in os.environ
 
+def is_running_on_colab():
+    return "COLAB_GPU" in os.environ
+
 KAGGLE_STR = "/kaggle/working/Multi-Pix2Pix/" if is_running_on_kaggle() else ""
+COLAB_STR = "content/Multi-Pix2Pix/" if is_running_on_colab() else ""
+
+PREFIX_STR = KAGGLE_STR + COLAB_STR
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 TRAIN_DIR = KAGGLE_STR + "image_dataset/landslide/Train"
