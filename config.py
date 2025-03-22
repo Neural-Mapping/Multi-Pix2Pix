@@ -12,7 +12,7 @@ def is_running_on_colab():
     return "COLAB_GPU" in os.environ
 
 KAGGLE_STR = "/kaggle/working/Multi-Pix2Pix/" if is_running_on_kaggle() else ""
-COLAB_STR = "content/Multi-Pix2Pix/" if is_running_on_colab() else ""
+COLAB_STR = "/content/Multi-Pix2Pix/" if is_running_on_colab() else ""
 
 PREFIX_STR = KAGGLE_STR + COLAB_STR
 
