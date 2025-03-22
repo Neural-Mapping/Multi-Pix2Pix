@@ -142,7 +142,7 @@ class Generator(nn.Module):
 if __name__ == "__main__":
     gen = Generator(in_channels=3, inter_images=4, out_channels=3)
     a = 256
-    x = torch.rand(2, 3, a, a)
+    x = torch.rand(1, 3, a, a)
     result = gen(x, z1=x, z2=x, z3=x, z4=x)
     print("Output: ", result.shape)
 

@@ -66,17 +66,24 @@ def calc_dice_score(y_fake, y, one_channel=False):
 def train_fn(disc, gen, train_loader, opt_disc, opt_gen, l1_loss, bce, g_scaler, d_scaler):
     loop = tqdm(train_loader, leave=True, total=len(train_loader))
 
-    for idx, (x,y) in enumerate(loop):
+    for idx, (x,z1,z2,z3,z4,y) in enumerate(loop):
         x = x.to(config.DEVICE)
-        # z1 = z1.to(config.DEVICE)
-        # z2 = z2.to(config.DEVICE)
-        # z3 = z3.to(config.DEVICE)
-        # z4 = z4.to(config.DEVICE)
+        z1 = z1.to(config.DEVICE)
+        z2 = z2.to(config.DEVICE)
+        z3 = z3.to(config.DEVICE)
+        z4 = z4.to(config.DEVICE)
         y = y.to(config.DEVICE)
+
+        print(x.shape)
+        print(z1.shape)
+        print(z2.shape)
+        print(z3.shape)
+        print(z4.shape)
+        print(y.shape)
 
         # Train Discriminator
         with torch.amp.autocast("cuda"):
-            y_fake = gen(x,) #z1=z1, z2=z2, z3=z3, z4=z4)
+            y_fake = gen(x, z1=z1, z2=z2, z3=z3, z4=z4)
             D_real = disc(x, y)
             D_real_loss = bce(D_real, torch.ones_like(D_real))
             D_fake = disc(x, y_fake.detach())
@@ -133,7 +140,7 @@ def train_fn(disc, gen, train_loader, opt_disc, opt_gen, l1_loss, bce, g_scaler,
 
 def main():
     discriminator = Discriminator(in_channels=3).to(config.DEVICE)
-    generator = Generator(in_channels=3, inter_images=0, features=64, out_channels=3).to(config.DEVICE)
+    generator = Generator(in_channels=3, inter_images=4, features=64, out_channels=3).to(config.DEVICE)
 
     opt_disc = optim.Adam(discriminator.parameters(), lr=config.LEARNING_RATE, betas=(0.5, 0.999))
     opt_gen = optim.Adam(generator.parameters(), lr=config.LEARNING_RATE, betas=(0.5, 0.999))

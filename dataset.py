@@ -30,11 +30,11 @@ class Image_dataset(Dataset):
 
         inter_image_dict = {}
         for idx in range(self.inter_images):
-            start_idx = config.IMAGE_RESIZED * (idx + 1)
-            end_idx = config.IMAGE_RESIZED * (idx + 2)
+            start_idx = config.IMAGE_SIZE * (idx + 1)
+            end_idx = config.IMAGE_SIZE * (idx + 2)
             inter_image_dict[idx] = image[:, start_idx:end_idx, :]
 
-        target_image = image[:, config.IMAGE_RESIZED * (self.inter_images + 1):, :]
+        target_image = image[:, config.IMAGE_SIZE * (self.inter_images + 1):, :]
         input_image = config.transform_only_input(image=input_image)["image"]
 
         for idx, inter_image in enumerate(inter_image_dict.values()):

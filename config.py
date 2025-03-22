@@ -24,7 +24,7 @@ LEARNING_RATE = 2e-4
 BATCH_SIZE = 1
 VAL_BATCH_SIZE = 5
 NUM_WORKERS = 2
-IMAGE_SIZE = 512
+IMAGE_SIZE = 128
 CHANNELS_IMG = 3
 L1_LAMBDA = 100
 LAMBDA_GP = 10
@@ -34,7 +34,7 @@ SAVE_MODEL = True
 CHECKPOINT_DISC = PREFIX_STR + "disc_LSM_v1.pth.tar"
 CHECKPOINT_GEN = PREFIX_STR + "gen_LSM_v1.pth.tar"
 
-RESIZE = None
+RESIZE = 2
 if RESIZE != None:
     IMAGE_RESIZED = RESIZE * IMAGE_SIZE
 else:
@@ -45,11 +45,11 @@ ALPHA = 1
 BETA = 0.01
 
 #################################################
-IN_CHANNELS = 1
-OUT_CHANNELS = 1
+IN_CHANNELS = 3
+OUT_CHANNELS = 3
 INTER_IMAGES = 4
 BINARIZE = False
-GRAYSCALE_ALL = True
+GRAYSCALE_ALL = False
 #################################################
 
 class ThresholdTransform(BasicTransform):
