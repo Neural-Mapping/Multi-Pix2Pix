@@ -17,8 +17,8 @@ COLAB_STR = "/content/Multi-Pix2Pix/" if is_running_on_colab() else ""
 PREFIX_STR = KAGGLE_STR + COLAB_STR
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-TRAIN_DIR = PREFIX_STR + "image_dataset/landslide/Train"
-VAL_DIR = PREFIX_STR + "image_dataset/landslide/Test"
+TRAIN_DIR = PREFIX_STR + "image_dataset/landslide-self/Train"
+VAL_DIR = PREFIX_STR + "image_dataset/landslide-self/Test"
 
 LEARNING_RATE = 2e-4
 BATCH_SIZE = 1
