@@ -1,9 +1,9 @@
-torch==2.0.1
-torchvision==0.15.2
+torch
+torchvision
 torchmetrics==1.4.2
-albumentations==2.0.5
+albumentations
 wandb==0.18.5
-tqdm==4.65.0
+tqdm
 numpy
-opencv-python-headless==4.10.0.84
-Pillow==10.4.0
+opencv-python-headless
+sentinelhub==3.11.1
