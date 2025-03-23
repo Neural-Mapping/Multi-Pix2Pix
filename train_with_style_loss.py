@@ -12,7 +12,7 @@ from torchvision.utils import save_image
 import wandb
 from VGG import VGG
 from torchmetrics.classification import Dice
-wandb.login(key="160fb2b5d5c5791978cce34bd4d7cf472ef06847")
+# wandb.login(key="160fb2b5d5c5791978cce34bd4d7cf472ef06847")
 vgg_model = VGG().to(config.DEVICE).eval()
 
 torch.backends.cudnn.benchmark = True
@@ -73,13 +73,6 @@ def train_fn(disc, gen, train_loader, opt_disc, opt_gen, l1_loss, bce, g_scaler,
         z3 = z3.to(config.DEVICE)
         z4 = z4.to(config.DEVICE)
         y = y.to(config.DEVICE)
-
-        print(x.shape)
-        print(z1.shape)
-        print(z2.shape)
-        print(z3.shape)
-        print(z4.shape)
-        print(y.shape)
 
         # Train Discriminator
         with torch.amp.autocast("cuda"):
