@@ -26,6 +26,7 @@ from sentinelhub import (
 
 
 def save_some_examples(gen, val_loader, epoch, folder):
+    os.makedirs(config.PREFIX_STR + folder, exist_ok=True)
     x, z1, z2, z3, z4, y = next(iter(val_loader))
     x, z1, z2, z3, z4, y = x.to(config.DEVICE), y.to(config.DEVICE), z1.to(config.DEVICE), z2.to(config.DEVICE), z3.to(config.DEVICE), z4.to(config.DEVICE)
     
@@ -39,13 +40,13 @@ def save_some_examples(gen, val_loader, epoch, folder):
         x = x*0.5+0.5
 
         stacked_images = torch.cat((x,y,y_fake), dim=2)
-        save_image(stacked_images, folder + f"/y_gen_{epoch}.png")
-        save_image(x, folder + f"/input_{epoch}.png")
+        save_image(stacked_images, config.PREFIX_STR + folder + f"/y_gen_{epoch}.png")
+        save_image(x, config.PREFIX_STR + folder + f"/input_{epoch}.png")
         wandb.log({
             "Generated Images": [wandb.Image(f"{config.PREFIX_STR}/evaluation/y_gen_{epoch}.png", caption=f"Epoch {epoch} - Generated")]
         })
         if epoch == 1 or epoch == 0:
-            save_image(y, folder + f"/label_{epoch}.png")
+            save_image(y, config.PREFIX_STR + folder + f"/label_{epoch}.png")
     gen.train()
 
 
