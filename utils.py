@@ -26,23 +26,23 @@ from sentinelhub import (
 
 
 def save_some_examples(gen, val_loader, epoch, folder):
-    x,y = next(iter(val_loader))
-    x,y = x.to(config.DEVICE), y.to(config.DEVICE) #z1.to(config.DEVICE), z2.to(config.DEVICE), z3.to(config.DEVICE), z4.to(config.DEVICE)
+    x, z1, z2, z3, z4, y = next(iter(val_loader))
+    x, z1, z2, z3, z4, y = x.to(config.DEVICE), y.to(config.DEVICE), z1.to(config.DEVICE), z2.to(config.DEVICE), z3.to(config.DEVICE), z4.to(config.DEVICE)
     
     gen.eval()
     with torch.no_grad():
-        y_fake =  gen(x,)# z1=z1, z2=z2, z3=z3, z4=z4)
-        # y_fake = (y_fake > 0.5).float() 
-        # y = (y > 0.5).float()
+        y_fake =  gen(x, z1=z1, z2=z2, z3=z3, z4=z4)
+        y_fake = (y_fake > 0.5).float() 
+        y = (y > 0.5).float()
 
-        # x, z1, z2, z3, z4 = x*0.5+0.5, z1*0.5+0.5, z2*0.5+0.5, z3*0.5+0.5, z4*0.5+0.5 # Denormalise
+        x, z1, z2, z3, z4 = x*0.5+0.5, z1*0.5+0.5, z2*0.5+0.5, z3*0.5+0.5, z4*0.5+0.5 # Denormalise
         x = x*0.5+0.5
 
         stacked_images = torch.cat((x,y,y_fake), dim=2)
         save_image(stacked_images, folder + f"/y_gen_{epoch}.png")
         save_image(x, folder + f"/input_{epoch}.png")
         wandb.log({
-            "Generated Images": [wandb.Image(f"/kaggle/working/evaluation/y_gen_{epoch}.png", caption=f"Epoch {epoch} - Generated")]
+            "Generated Images": [wandb.Image(f"{config.PREFIX_STR}/evaluation/y_gen_{epoch}.png", caption=f"Epoch {epoch} - Generated")]
         })
         if epoch == 1 or epoch == 0:
             save_image(y, folder + f"/label_{epoch}.png")
