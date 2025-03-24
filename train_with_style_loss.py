@@ -12,7 +12,7 @@ from torchvision.utils import save_image
 import wandb
 from VGG import VGG
 from torchmetrics.classification import Dice
-# wandb.login(key="160fb2b5d5c5791978cce34bd4d7cf472ef06847")
+
 vgg_model = VGG().to(config.DEVICE).eval()
 
 torch.backends.cudnn.benchmark = True
@@ -174,7 +174,8 @@ def main():
         if config.SAVE_MODEL and epoch % 5 == 0:
             save_checkpoint(generator, opt_gen, filename=config.CHECKPOINT_GEN)
             save_checkpoint(discriminator, opt_disc, filename=config.CHECKPOINT_DISC)
-        save_some_examples(generator, train_loader, epoch, folder="evaluation")                  ##  Makes sure to change this to val_loader
+        save_some_examples(
+            generator, DataLoader(train_dataset, batch_size=5, shuffle=True, num_workers=config.NUM_WORKERS), epoch, folder="evaluation")                  ##  Makes sure to change this to val_loader
 
 
 if __name__ == "__main__":
