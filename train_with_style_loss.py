@@ -174,7 +174,7 @@ def main():
         if config.SAVE_MODEL and epoch % 5 == 0:
             save_checkpoint(generator, opt_gen, filename=config.CHECKPOINT_GEN)
             save_checkpoint(discriminator, opt_disc, filename=config.CHECKPOINT_DISC)
-        save_some_examples(generator, val_loader, epoch, folder="evaluation")
+        save_some_examples(generator, train_loader, epoch, folder="evaluation")                  ##  Makes sure to change this to val_loader
 
 
 if __name__ == "__main__":
