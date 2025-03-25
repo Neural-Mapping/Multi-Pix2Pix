@@ -10,6 +10,7 @@ import numpy as np
 import ee
 import geemap
 import cv2
+import math
 
 from sentinelhub import SHConfig
 from sentinelhub import (
@@ -24,6 +25,62 @@ from sentinelhub import (
     bbox_to_dimensions,
 )
 
+config_sentinel = SHConfig(sh_client_id=os.environ.get("sh_client_id"), sh_client_secret=os.environ.get("sh_client_secret"))
+from dotenv import load_dotenv
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
+
+CLIENT_ID = os.environ.get("sh_client_id")
+CLIENT_SECRET = os.environ.get("sh_client_secret")
+
+
+def get_suseptibility_mapping(cordinates, script, box_dim=400, date_start = "2024-04-12", date_end = "2024-04-12", res=2100):
+    min_lat, min_lon, max_lat, max_lon  = cordinates
+
+    cords = [min_lon, min_lat, max_lon, max_lat]
+
+    bbox = BBox(bbox=cords, crs=CRS.WGS84)
+    size = bbox_to_dimensions(bbox, resolution=box_dim*1000/res)
+
+    request_lms_color = SentinelHubRequest(
+            evalscript=script,
+            input_data=[
+                SentinelHubRequest.input_data(
+                    data_collection=DataCollection.SENTINEL2_L2A,
+                    time_interval=(date_start, date_end),
+                )
+            ],
+            responses=[SentinelHubRequest.output_response("default", MimeType.PNG)],
+            bbox=bbox,
+            size=size,
+            config=config_sentinel,
+        )
+
+    lms_response = request_lms_color.get_data()
+    return lms_response[0]
+
+def generate_grid(top_left_lat, top_left_lon, grid_side = 9, distance=400000):
+    R = 6371000  # Earth's radius in meters
+    grid = []
+    
+    # Convert top-left latitude to radians
+    top_left_lat_rad = math.radians(top_left_lat)
+
+    # Compute shifts in degrees
+    delta_lat = (distance / R) * (180 / math.pi)
+    delta_lon = (distance / (R * math.cos(top_left_lat_rad))) * (180 / math.pi)
+
+    # Generate grid (grid_side x grid_side)
+    for row in range(grid_side):  # Move downward
+        for col in range(grid_side):  # Move right
+            min_lat = top_left_lat - (row * delta_lat)  # Move south
+            min_lon = top_left_lon + (col * delta_lon)  # Move east
+            max_lat = min_lat + delta_lat
+            max_lon = min_lon + delta_lon
+            grid.append([min_lat, min_lon, max_lat, max_lon])
+    
+    return grid
 
 def save_some_examples(gen, val_loader, epoch, folder):
     os.makedirs(config.PREFIX_STR + folder, exist_ok=True)
@@ -33,8 +90,8 @@ def save_some_examples(gen, val_loader, epoch, folder):
     gen.eval()
     with torch.no_grad():
         y_fake =  gen(x, z1=z1, z2=z2, z3=z3, z4=z4)
-        y_fake = (y_fake > 0.5).float() 
-        y = (y > 0.5).float()
+        # y_fake = (y_fake > 0.5).float() 
+        # y = (y > 0.5).float()
 
         x, z1, z2, z3, z4 = x*0.5+0.5, z1*0.5+0.5, z2*0.5+0.5, z3*0.5+0.5, z4*0.5+0.5 # Denormalise
         x = x*0.5+0.5
