@@ -9,6 +9,15 @@ import os
 config_sentinel = SHConfig(sh_client_id=os.environ.get("sh_client_id"), sh_client_secret=os.environ.get("sh_client_secret"))
 print(config_sentinel.sh_client_id)
 
+import gradio as gr
+import folium
+from utils import generate_grid
+import selenium
+from io import BytesIO
+from PIL import Image
+import matplotlib.pylab as plt
+import numpy as np
+
 from sentinelhub import SHConfig
 from sentinelhub import (
     CRS,
@@ -43,6 +52,7 @@ from torch import optim
 import torch
 from config import DEVICE
 import folium
+from datetime import datetime
 
 # Load model
 gen = Generator(in_channels=3, inter_images=4, out_channels=3)
@@ -97,6 +107,7 @@ def get_images(km, grid, grid_dim, script, box_dim=400, date_start = "2024-04-12
 
 
 def generate_image(lat, lon, box_dim, grid, date):
+    lat, lon, box_dim, grid, date = float(lat), float(lon), int(box_dim), int(grid), str(datetime.fromtimestamp(date).strftime("%Y-%m-%d"))
     box_dim = int(box_dim)
     lat = float(lat)
     lon = float(lon)
@@ -179,18 +190,39 @@ def generate_image(lat, lon, box_dim, grid, date):
 
     return canvas_generated_output
 
-# Gradio interface
-iface = gr.Interface(
-    fn=generate_image,
-    inputs=[
-        gr.Textbox(label="Latitude", max_lines=1),
-        gr.Textbox(label="Longitude", max_lines=1),
-        gr.Textbox(label="Box Dimension", max_lines=1),
-        gr.Textbox(label="Grid", max_lines=1),
-        gr.Textbox(label="Date", max_lines=1),
-    ],
-    outputs=gr.Image(label="Generated Image"),
-    title="Landslide Susceptiblity Mapping"
-)
 
-iface.launch()
+def view_map(lat, lon, box_dim, grid):
+    lat, lon, box_dim, grid = float(lat), float(lon), int(box_dim), int(grid)
+    g = generate_grid(lat, lon, distance=box_dim*1000, grid_side=grid)
+    m = folium.Map(
+        location=(lat, lon),
+        zoom_start=12,
+        tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        attr='Esri'
+    )   
+    for i in range(len(g)):
+        folium.Rectangle([(g[i][:2]), (g[i][2:])], color='red', fill='pink',fill_opcity=0.5).add_to(m)
+
+    png = m._to_png(3)
+    return Image.open(BytesIO(png))
+
+
+with gr.Blocks() as demo:
+    with gr.Tab("Confirm Region"):
+        Latitude = gr.Textbox(lines=1, label="Latitude")
+        Longitude = gr.Textbox(lines=1, label="Longitude")
+        Grid = gr.Dropdown([1,2,3,4,5], label="Grid")
+        Bbox_Dimension = gr.Dropdown([1,2,3,4,5], label="Bbox Dimension (in km)")
+    
+        View_map_button = gr.Button("View Map")
+        sat_image = gr.Image()
+    
+    with gr.Tab("Generate LSM"):
+        Date = gr.DateTime(include_time=False, label="Select a date")
+        Generate_LSM_button = gr.Button("Generate Landslide Susceptibility Mapping")
+        lsm_image = gr.Image()
+
+    View_map_button.click(view_map, inputs=[Latitude, Longitude, Bbox_Dimension, Grid], outputs=sat_image)
+    Generate_LSM_button.click(generate_image, inputs=[Latitude, Longitude, Bbox_Dimension, Grid, Date], outputs=lsm_image)
+
+demo.launch(share=True)
