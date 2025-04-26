@@ -203,7 +203,7 @@ def view_map(lat, lon, box_dim, grid):
     for i in range(len(g)):
         folium.Rectangle([(g[i][:2]), (g[i][2:])], color='red', fill='pink',fill_opcity=0.5).add_to(m)
 
-    png = m._to_png(3)
+    png = m._to_png(1)
     return Image.open(BytesIO(png))
 
 
