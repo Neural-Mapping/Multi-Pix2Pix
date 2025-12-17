@@ -41,25 +41,15 @@ Vijayawada, India\\
 
 \maketitle
 
-\maketitle
 
 \begin{abstract}
 A landslide is the movement of a mass of rock, debris, or earth down a slope. Landslides are a type of “mass wasting,”
-which denotes down-slope movement of soil and rock under gravity [1]. in India, about 0.42 million sq. km or 12.6% of land area,
+which denotes down-slope movement of soil and rock under gravity [1]. In India, about 0.42 million sq. km or 12.6% of land area,
 excluding snow covered area, is prone to landslide hazard [2]. Landslide susceptibility mapping is the process of identifying areas
-prone to landslides amid natural changes to that of the geology, tropical factors, environmental factors and many more. In process
-of mapping these regions and classifying them into different categories of threat level, it help in early detection and avoidance. By
-using EOBrowser [3] to quickly view and analyze different algorithms, this paper shows promise of easier and accurate landslide
-mapping. After Mapping of existing landslide cases, those cases where taken in during Data Collection process further fed into
-Conditional Adversarial Network for prediction of LSM before it happens. During data collection process various factors where
-cross referenced and: NDVI, dNDVI, Slope, Elevation, NDWI, Barren soil index where ranked as the most important one of them
-all.
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.6\linewidth]{images/1_abstract.png}
-    \caption{Our algorithm vs Landslide Atlas of India [1]}
-    \label{fig:1_abstract}
-\end{figure}
+prone to landslides amid natural changes to that of the geology, tropical factors, environmental factors and many more. In the process of mapping these regions and classifying them into different categories of threat level, it helps in early detection and avoidance. By using EOBrowser [3] to quickly view and analyze different algorithms, this study demonstrates the potential for more efficient and accurate landslide mapping. After mapping existing landslide cases, those cases were incorporated during the data collection process and further fed into a
+Conditional Adversarial Network for predictive landslide susceptibility mapping. During data collection process various factors were
+cross referenced and: NDVI, dNDVI, slope, elevation, NDWI, and the bare soil index were ranked as the most important contributing factors.
+
 
 \end{abstract}
 
@@ -69,12 +59,18 @@ Landslide susceptibility mapping, EOBrowser, NDVI, dNDVI, Slope, Elevation, NDWI
 
 \section{Research Area}
 Since Landslide susceptibility mapping is one of the important junctures of geospatial analysis, remote sensing, and machine learning, which focuses on the prediction of zones that are susceptible to slope failure. In India alone, it is revealed that about 0.42 million square kilometers of area or 12.6 percent of the land area is prone to landslides; therefore, accurate prediction of landslides is imperative for preparing for such natural calamities. This research area explores the application of GIS, satellite remote sensing, and sophisticated computational techniques for terrain stability analysis.​​
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\linewidth]{images/1_abstract.png}
+    \caption{Comparison between the proposed algorithm and the Landslide Atlas of India [1]}
+    \label{fig:1_abstract}
+\end{figure}
 
 \subsection{Traditional Ways of Solving the Problem}
 Traditional techniques for susceptibility zonation of landslides make use of statistics, as well as models developed by experts that identify the factors that trigger landslides, including slope, elevation, geology, distance from faults, rainfall, and land use. Such models are often capable of producing a susceptibility map that divides an area into zones of low, moderate, or high susceptibility. But these models tend to encounter shortcomings with respect to scalability or real-time processing.​​
 
 \subsection{Deep Learning / Generative Models}
-Recently, the trends in the field have moved towards machine learning-based or deep learning-based models for learning complex spatial patterns for geospatial data with high dimensionality. One such recent advancement in deep learning models is the application of Generative Adversarial Networks (GANs), especially Conditional GANs (cGANs), for image-to-image translation tasks in geospatial applications. Such techniques have the capability of learning the complex dependencies between multiple indicators of the environment and produce accurate susceptibility maps with the help of various inputmodalities such as vegetation indices, water content, terrain, and soil exposures. This work rectifies the drawbacks of the existing methods by learning multiple indicators together for accurate predictions at high resolution for various geospatial applications
+Recently, the trends in the field have moved towards machine learning-based or deep learning-based models for learning complex spatial patterns for geospatial data with high dimensionality. One such recent advancement in deep learning models is the application of Generative Adversarial Networks (GANs), especially Conditional GANs (cGANs), for image-to-image translation tasks in geospatial applications. Such techniques have the capability of learning the complex dependencies between multiple indicators of the environment and produce accurate susceptibility maps with the help of various inputmodalities such as vegetation indices, water content, terrain, and soil exposures. The proposed approach addresses the limitations of existing methods by learning multiple indicators together for accurate predictions at high resolution for various geospatial applications
 
 \section{Literature Survey}
 Landslide susceptibility mapping or assessment is a major area that developed significantly from knoweldge-based systems to data/computationally intensive models.
@@ -88,7 +84,7 @@ Satellite remote sensing techniques have become an important application for ide
 \subsection{Generative Adversarial Networks for Image Translation}
 The Pix2Pix framework, developed using Conditional Generative Adversarial Networks (cGANs), marked the onset of a novel way of approaching image-to-image translation tasks using a supervisory learning regimen. Unlike standard GANs used for image creation through random noise, cGANs condition both the generator network and the discriminator on input images, allowing for directed translation between paired image domains. It uses a U-Net generator with skip connections for effective spatial information preservation and a PatchGAN discriminator that focuses on image authenticity at the pixel or patch level instead of the image as a whole. Initially used for applications such as photo synthesis from label maps or image colorization tasks, cGANs' potential for geospatial applications such as terrain analysis or hazard mapping is evident. The landmark study by Isola et al. showed that cGANs with the aid of L1 loss were capable of learning structural correspondences between input and output images effectively, an important characteristic for tasks requiring the preservation of spatial information, a key requirement for landslide susceptibility mapping tasks
 
-\section{data set Feature and factors}
+\section{Dataset Features and Factors}
 Data for the analysis was gathered from NASA's Cooperative Open Online Landslide Repository (COOLR) that stores geolocated data of landslides that were documented globally through media coverage, research literature, or disaster data repositories around the globe. Landslide data from the repository that occurred between the 1st of January 2018 and the time of data collection for this study were selected, and the data selected had to meet four major criteria: event date, event title, latitude, and longitude. These criteria were selected with the intention of matching the data with the time that the Sentinel satellite systems became consistent in their operation, which was after the end of 2017. The data for analysis covered geographically distinct areas such as India (Pernote Village, Yeshwantpur Karwar Express, Yedekumeri Railway Station), the USA (Rockslide at Tunnel), Thailand (Wat Khao Tham Phra), and Myanmar (Hpakant Jade Mining Region), with almost 900 landslide projects.​
 
 \subsection{Satellite-Derived}
@@ -100,8 +96,8 @@ Each of the final datasets is made up of a total of seven elements: NDVI imagery
 
 \section{Methodology}
 There exist multiple factors that can cause landslide or are in many cases a prominent contributing factor that directly relates to landslide. Paper “Selection of contributing factors for predicting landslide susceptibility using machine learning and deep learning models” [4] brings forward many of these factors such as: Lithology, Plan, Profile, STI, Aspect, Distance to fault, NDVI, Distance to stream, Rainfall , Distance to road, SPI, TWI, Slope, Elevation, Land use.\par
-Thought our implementation and experimentations we found out that NDVI, dNDVI, Slope, Elevation, NDWI, Barren soil index are enough to give high accuracy. NDVI, dNDVI, NDWI, Barren soil index are retrieved from Sentinel satellite via API and Slope and elevation maps are retrieved from Copernicus DEM (Digital Elevation Model). Scripts writing in EOBrowser gives instant preview of LSM but the final rendering of LSM happens on codebase where other factors such as dNDVI (which is difference Normalized Vegetation Index) that cannot be calculated as dNDVI requires multi-temporal (multi-date) analysis, while EO Browser primarily processes data for single timestamps at a time are applied.\par
-Further more Conditional Adversarial model was build around it inheriting the basic skeleton of “Image-to-Image Translation with Conditional Adversarial Networks” paper, This paper was designed to accept on image as guidance, tailoring this model to fit our requirement required us to modify the input mechanism that allowed multiple images to  be accepted as inputs, that leads to the generating of a mask, better understanding of images and faster convergence since the original models where found.
+Through experimental evaluation, it was observed that NDVI, dNDVI, slope, elevation, NDWI, and bare soil index were sufficient to achieve high accuracy. NDVI, dNDVI, NDWI, Barren soil index are retrieved from Sentinel satellite via API and Slope and elevation maps are retrieved from Copernicus DEM (Digital Elevation Model). Scripts written in EO Browser provide an instant preview of the LSM but the final rendering of LSM happens on codebase where other factors such as dNDVI (which is difference Normalized Vegetation Index) that cannot be calculated as dNDVI requires multi-temporal (multi-date) analysis, while EO Browser primarily processes data for single timestamps at a time are applied.\par
+Furthermore, the Conditional Adversarial Network was developed by inheriting the basic architecture of “Image-to-Image Translation with Conditional Adversarial Networks” paper, This paper was designed to accept on image as guidance, Adapting the model to the proposed requirements necessitated modification of the input mechanism that allowed multiple images to  be accepted as inputs, that leads to the generating of a mask, better understanding of images and faster convergence since the original models were found.
 
 \subsection{Understanding Factors}
 \subsubsection{NDVI}
@@ -116,7 +112,7 @@ NDVI is a remote sensing index used to measure and monitor vegetation health and
 \label{eq:ndvi}
 \end{equation}
 
-\subsubsection{NWDI}
+\subsubsection{NDWI}
 The Normalized Difference Water Index (NDWI) is used to monitor changes in water content of vegetation, bodies of water, and soil. It is similar to NDVI but instead of focusing on vegetation, it targets the presence of water. NDWI uses green and near-infrared (NIR) bands to detect water bodies and moisture levels in vegetation [7].
 
 \begin{equation}
@@ -130,7 +126,7 @@ Unlike NDVI, which is a snapshot of vegetation at a single time, dNDVI measures 
 
 \begin{equation}
 \text{dNDVI} = \text{NDVI}_{t2} - \text{NDVI}_{t1}
-\label{eq:ndwi}
+\label{eq:dndvi}
 \end{equation}
 
 Where $\text{NDVI}_{t2}$ NDVI value at the second time point (later date) and $\text{NDVI}_{t1}$ NDVI value at the first time point (earlier date). Positive dNDVI values indicate an increase in vegetation or greening. Negative dNDVI values indicate decreasing vegetation or browning. \par
@@ -233,7 +229,7 @@ Water Body is detected using the NDWI factor itself without much tweaking.
 
 \subsubsection{dNDVI}
 As mentioned in equation (3), the dNDVI is calculated by subtracting later date NDVI with earlier date NDVI, or the vice versa depending on the need.\par
-This is crucial in landslide or forest fire detection task as it is a vital point from analysis point of view. By finding dNDVI we can create a mask as mentioned before.
+This is crucial in landslide or forest fire detection task as it is a vital point from analysis point of view. By finding dNDVI a mask can be generated as mentioned before.
 
 \begin{figure}[htbp]
     \centering
@@ -249,7 +245,7 @@ This is crucial in landslide or forest fire detection task as it is a vital poin
     \label{fig:5}
 \end{figure}
 
-By subtracting and making sure only to keep those pixels who’s NDVI (after landslide) is lighter (lower value) that that of  NDVI (before landslide), to make sure the mask obtained is of vegetation decreasing and not vegetation increasing [10].\par
+By subtracting and retaining only those pixels whose NDVI (after landslide) is lower than that of NDVI (before landslide), to make sure the mask obtained is of vegetation decreasing and not vegetation increasing [10].\par
 
 \subsection{Landslide probable areas}
 
@@ -283,7 +279,7 @@ targeted :
     \label{fig:8}
 \end{figure}
 
-\subsection{CONDITIONAL ADVERSARIAL NETWORK}
+\subsection{Conditional Adversarial Network}
 CGANs are an enhanced version of GANs where both the generator and discriminator are conditioned on some additional\par
 information. This helps guide the generation process making it more controlled and targeted.
 
@@ -299,15 +295,15 @@ The objective of the cGAN comes out to be
 \mathcal{L}_{cGAN}(G, D) = \mathbb{E}_y[\log D(C, y)] + \mathbb{E}_z[\log(1 - D(C, G(C, z)))]
 \end{equation}
 C is a vector of conditions of arbitrary length n , i.e., C = (c1, c2, …, cn) .
-In our case n is 5, i.e the number of input to the cGAN is 5, additional images can be added but there is a need of staying alert as there will be a saturation point that a certain number of input the Conditions can become counterproductive.\par
-We use L1 loss just like the paper, that is Lasso (Least Absolute Shrinkage and Selection Operator), this encourages sparsity, meaning it tends to drive some coefficients exactly to zero.
-Our final objective is:
+In this implementation, n = 5, i.e the number of input to the cGAN is 5, Additional input channels can be incorporated; however, excessive conditioning may lead to diminishing returns as there will be a saturation point that a certain number of input the Conditions can become counterproductive.\par
+L1 loss is employed, consistent with prior work, that is Lasso (Least Absolute Shrinkage and Selection Operator), this encourages sparsity, meaning it tends to drive some coefficients exactly to zero.
+The final optimization objective is:
 \begin{equation}
 G^* = \arg\min_{G} \max_{D} \mathcal{L}_{cGAN}(G, D) + \lambda \mathcal{L}_{L1}(G)
 \end{equation}
 
 
-We use PatchGAN – that only penalizes structure at the scale of patches. This discriminator tries to classify if each N×N patch in an image is real or fake. We run this discriminator convolutionally across the image, averaging all responses to provide the ultimate output of D.
+A PatchGAN discriminator is employed – that only penalizes structure at the scale of patches. This discriminator tries to classify if each N×N patch in an image is real or fake. The discriminator is applied convolutionally across the image, averaging all responses to provide the ultimate output of D.
 
 \begin{figure}[htbp]
     \centering
@@ -326,7 +322,7 @@ We use PatchGAN – that only penalizes structure at the scale of patches. This 
 A defining characteristic of image-to-image translation problems is that they map a high-resolution input grid to a high-
 resolution output grid. Moreover, for the problems we consider, the input and output differ in their surface appearance, yet they
 both represent the same underlying structure. Consequently, the structure in the input is roughly aligned with the structure in
-the output. Considering these factors, we design the generator architecture accordingly. \par
+the output. Considering these factors, the generator architecture is designed accordingly. \par
 Many previous solutions to problems in this domain have employed an encoder-decoder network. In such a network, the
 input is processed through a series of progressively downsampling layers until a bottleneck layer is reached. At this point, the
 process is reversed. However, this network requires that all information flow through all layers, including the bottleneck. For
@@ -334,35 +330,35 @@ numerous image translation problems, there is a significant amount of low-level 
 output. It would be advantageous to directly transmit this information across the network. For instance, in the case of image
 colorization, the input and output share the location of prominent edges.
 
-\subsection{DATASET CREATION}
-Dataset creation was another tedious part of the process and redialing available dataset didn't fit our requirements. To
-accomplish this we got NASA’s Dataset for landslides [14], out of which the columns we felt relatable were: event-date (The date on which the landslide occurred), event-title ( brief title describing the event), latitude, longitude.
+\subsection{Dataset Creation}
+Dataset creation was a computationally intensive component of the workflow and existing datasets were not suitable for the objectives of this study. To
+accomplish this Landslide data were obtained from NASA’s dataset [14], out of which the relevant columns selected were: event-date (The date on which the landslide occurred), event-title ( brief title describing the event), latitude, longitude.
 
 \subsubsection{Data Filtering Criteria}
 To ensure relevance and temporal consistency, the dataset is filtered to include only landslide events that occurred between
 January 1, 2018, and 10 days before the date of data collection. This filtering process eliminates outdated data and ensures that
-the analysis is based on recent events and the reason being for 2018 to be the start of our scraping is that sentinel satellites
+the analysis is based on recent events and The selection of 2018 as the starting year is due to the operational consistency of Sentinel satellites is that sentinel satellites
 became operational after 2017, and consistent somewhere around late 2017.
 
 
 \subsubsection{Automating Grid Scan Algorithm}
-The way we approach to fetch giant piece of land for scanning when required and scaling is back down for various
-requirements and to loose as little data as possible we use grid and access each grid in sequential order. Further advancements
-can be made by parallelizing this approach.
+The approach used to retrieve large geographic regions for scanning when required and scaling is back down for various
+requirements while minimizing data loss A grid-based approach is used, with each cell accessed sequentially. Future enhancements may include parallelization of this approach.
+
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.545\linewidth]{images/Fig. 12. An example of how our grid scan algorithm segments a piece of land (southern india for reference)..png}
-    \caption{An example of how our grid scan algorithm segments a piece of land (southern india for reference).}
+    \caption{An example of how the grid scan algorithm segments a piece of land (southern India for reference).}
     \label{fig:12}
 \end{figure}
 
 
 % \clearpage
 
-The reason for the first row of the grid to be above the user defined longitude and longitude is that during our analysis we
-constantly using grid of 1x1 for scanning smaller pieces of land, which made sense when longitude and latitude were bottom
-left, this approach can be altered but this is what we stuck to.\par
+The reason for the first row of the grid to be above the user defined longitude and longitude is that during the analysis,
+constantly using grid of 1x1 for scanning smaller pieces of land, which was justified when longitude and latitude were bottom
+left, this approach can be altered but this approach was adopted.\par
 The algorithm used in the function to add distance to each grid is a latitude-longitude grid generation algorithm based on
 Vincenty’s formulae or Haversine-based calculations approximations for small distances. Specifically, it: Assumes the Earth as
 a sphere (radius = 6,371,000 meters) and uses simple trigonometric approximations to compute shifts in latitude and longitude:
@@ -378,14 +374,14 @@ Longitude change (Δlon) is computed using
 \end{equation}
 
 This accounts for the fact that longitude degrees get compressed as you move towards the poles.\par
-A discovery was made that could cause potential hurdles in creating dataset, and that was clouds, Clouds pose a threat to
+A challenge identified during dataset creation was cloud contamination, Clouds pose a threat to
 proper retrieval of images and since our dataset was supposed to consist of images predominantly, this issue needed to be
 addressed.\par
 
 To solve this issue following steps were carried out:
 \paragraph{Get dates before and after the landslide that the sentinel satellite few over}
 There is a small window when the satellite
-flies over the desired region, being every 5-6 days, using Copernicus’s Catalog API [15] it made it possible to fetch us 5-6
+flies over the desired region, being every 5-6 days, using Copernicus’s Catalog API [15] it made it possible to fetch 5-6
 dates before and after the landslide occurred over the region.
 
 \paragraph{Get Cloud coverage for each date}
@@ -395,8 +391,7 @@ dates are looked up via the api and assigned a percentage of cloud coverage.
 \paragraph{Find the optimal date}
 Two dates that is closest to the landslide occurring date, one for before landslide occurring and
 other for after landslide occurred.\par
-User has the option of whether to apply these steps for each grid separately or altogether, for this paper we chose to apply
-these steps for each grid./par
+User has the option of whether to apply these steps for each grid separately or altogether, for this paper, these steps were applied independently to each grid.\par
 
 Since different grids might select different dates, this can lead to visual discontinuities in the final composite image. If
 uniformity is critical (e.g., for seamless mosaicking), setting false ensures all grids use the same date, even if cloud coverage
@@ -479,7 +474,7 @@ Consisting information such as dimension resolution, latitude, longitude, dates 
     \label{fig:20}
 \end{figure}
 
-From these projects, (around 900 were scrapped), the dataset were made [Fig 13]\par
+From these projects (approximately 900), the dataset was constructed [Fig 13]\par
 All these were gathered using sentinel hub api [17], and the dataset (above images) are in order of:\par
 
 \setcounter{paragraph}{0}
@@ -501,9 +496,9 @@ A processed output highlighting regions prone to landslides based on terrain
 and environmental factors; it is also the ground truth (something to be predicted).
 
 
-\subsection{MODEL TRAINING}
+\subsection{Model Training}
 
-Model training isn’t much different from the Pix2Pix paper but few more metrics have been incorporated into it such as
+Model training closely follows the Pix2Pix framework but few more metrics have been incorporated into it such as
 Style loss; Style loss is commonly used in style transfer and GAN-based image generation tasks to ensure that the generated
 images preserve the texture, patterns, and high-level structure of a reference style image. It is based on the VGG network and
 was originally introduced in the Gatys et al. (2016) style transfer paper [18]\par
@@ -568,7 +563,7 @@ Where:
 constants (e.g., 0.01 and 0.03) and L is the dynamic range of the image
 \end{itemize}
 
-Accuracy of the model trained is 0.899.
+The trained model achieved an accuracy of 0.899.
 
 \begin{figure}[htbp]
     \centering
@@ -591,7 +586,7 @@ Accuracy of the model trained is 0.899.
     \label{fig:23}
 \end{figure}
 
-\section{CONCLUSION}
+\section{Conclusion}
 This study presents a novel approach to landslide susceptibility mapping by leveraging a Conditional Generative
 Adversarial Network (cGAN) architecture, adapted from Pix2Pix, and enhanced to accept multi-channel input derived from
 satellite imagery. By integrating key geospatial indicators—such as dNDVI, BSI, NDWI, elevation, and slope—the model
